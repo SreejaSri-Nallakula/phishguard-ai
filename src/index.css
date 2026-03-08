@@ -87,7 +87,7 @@
     background-size: 60px 60px;
   }
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-violet-400 to-fuchsia-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-violet-600 to-fuchsia-600;
   }
 }
 
