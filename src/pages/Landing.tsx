@@ -91,24 +91,8 @@ export default function Landing() {
               transition={{ duration: 0.9, delay: 0.2 }}
             >
               <div className="relative w-full max-w-[440px] mx-auto">
-                {/* Glow behind orb */}
-                <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[200px] h-[200px] rounded-full bg-primary/25 blur-[80px] pointer-events-none" />
-
-                {/* Floating orb */}
-                <motion.div
-                  className="relative z-10 w-[40%] mx-auto mb-[-10%]"
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <div
-                    className="w-full aspect-square rounded-full"
-                    style={{
-                      background: "radial-gradient(circle at 35% 35%, hsl(280 75% 72% / 0.9), hsl(260 80% 52% / 0.7) 40%, hsl(260 80% 35% / 0.4) 70%, transparent 100%)",
-                      boxShadow: "0 0 80px 25px hsl(260 80% 62% / 0.3), 0 30px 50px -15px hsl(260 80% 62% / 0.35)",
-                      filter: "blur(0.5px)",
-                    }}
-                  />
-                </motion.div>
+                {/* Subtle glow */}
+                <div className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[200px] h-[200px] rounded-full bg-primary/15 blur-[80px] pointer-events-none" />
 
                 {/* Isometric platform SVG */}
                 <svg className="relative z-0 w-full" viewBox="0 0 400 240" fill="none">
