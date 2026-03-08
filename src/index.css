@@ -78,7 +78,7 @@
     @apply border border-primary/30 shadow-[var(--neon-glow)];
   }
   .neon-text {
-    @apply text-primary drop-shadow-[0_0_8px_hsl(199_89%_48%_/_0.5)];
+    @apply text-primary drop-shadow-[0_0_8px_hsl(270_76%_58%_/_0.5)];
   }
   .grid-bg {
     background-image: 
