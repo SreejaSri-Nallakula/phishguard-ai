@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Shield, Search, FileText, Zap, Globe, BarChart3, AlertTriangle, Lock, ChevronRight, ArrowRight } from "lucide-react";
+import { Shield, Search, FileText, Zap, Globe, BarChart3, AlertTriangle, Lock, ChevronRight, ArrowRight, Check } from "lucide-react";
 import { motion } from "framer-motion";
 import heroOrb from "@/assets/hero-orb.png";
 
@@ -28,97 +28,121 @@ export default function Landing() {
         {/* Background */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute inset-0 grid-bg opacity-30" />
-          <div className="absolute top-1/2 right-[25%] -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-primary/15 blur-[180px]" />
+          {/* Subtle glow behind the visual */}
+          <div className="absolute top-[40%] right-[15%] -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-primary/10 blur-[160px]" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10 py-16">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-8 items-center max-w-6xl mx-auto">
-            {/* Left */}
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5 mb-8"
-              >
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-6 items-center max-w-6xl mx-auto">
+            {/* Left content */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+            >
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-border bg-secondary/50 mb-7">
                 <Shield className="h-3.5 w-3.5 text-primary" />
-                <span className="text-sm text-primary/90 font-medium">AI-Powered Email Protection</span>
-              </motion.div>
+                <span className="text-xs text-muted-foreground font-medium">Real-time phishing detection</span>
+              </div>
 
-              <motion.h1
-                className="text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.08] tracking-tight mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-              >
+              {/* Heading */}
+              <h1 className="text-[2.6rem] md:text-5xl lg:text-[3.3rem] font-extrabold leading-[1.08] tracking-tight mb-5">
                 <span className="text-foreground">Protect Your Inbox</span>
                 <br />
                 <span className="text-foreground">Against </span>
                 <span className="gradient-text">Phishing</span>
-              </motion.h1>
+              </h1>
 
-              <motion.p
-                className="text-muted-foreground text-[15px] md:text-base max-w-[440px] leading-relaxed mb-10"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.35 }}
-              >
-                Advanced AI that detects phishing emails in real-time. Simply paste suspicious content and get instant threat analysis with actionable insights.
-              </motion.p>
+              {/* Subtitle */}
+              <p className="text-muted-foreground text-[15px] max-w-[420px] leading-relaxed mb-8">
+                Advanced AI that detects phishing emails in real-time. Simply paste suspicious content and get instant threat analysis.
+              </p>
 
-              <motion.div
-                className="flex flex-col sm:flex-row gap-3"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-              >
+              {/* Buttons */}
+              <div className="flex flex-row gap-3 mb-8">
                 <Link
                   to="/analyzer"
-                  className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold bg-primary text-primary-foreground shadow-[var(--neon-glow-strong)] hover:brightness-110 transition-all"
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-3 rounded-lg font-semibold text-sm bg-primary text-primary-foreground shadow-[var(--neon-glow)] hover:brightness-110 transition-all"
                 >
-                  Start Scanning
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  Get Started
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   to="/education"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-medium border border-border text-foreground hover:bg-secondary transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-lg font-medium text-sm border border-border text-foreground hover:bg-secondary/60 transition-colors"
                 >
                   Learn More
                 </Link>
-              </motion.div>
-            </div>
+              </div>
 
-            {/* Right - 3D orb image */}
+              {/* Check features */}
+              <div className="flex flex-wrap gap-x-5 gap-y-2">
+                {["No credit card required", "Instant analysis", "Free to use"].map((item, i) => (
+                  <div key={i} className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <Check className="h-3 w-3 text-primary" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Right - Visual with border frame */}
             <motion.div
               className="relative flex items-center justify-center"
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.3 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <motion.img
-                src={heroOrb}
-                alt="AI Security Shield"
-                className="w-full max-w-[480px] drop-shadow-[0_0_60px_hsl(260_80%_62%_/_0.3)]"
-                animate={{ y: [0, -12, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              />
+              {/* Bordered frame container */}
+              <div className="relative w-full max-w-[520px] aspect-square rounded-2xl border border-border/60 bg-card/20 backdrop-blur-sm flex items-center justify-center overflow-hidden">
+                {/* Inner glow */}
+                <div className="absolute inset-0 pointer-events-none">
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] rounded-full bg-primary/10 blur-[80px]" />
+                </div>
+
+                {/* Grid inside frame */}
+                <div className="absolute inset-0 grid-bg opacity-20" />
+
+                {/* Orb image */}
+                <motion.img
+                  src={heroOrb}
+                  alt="AI Security Shield"
+                  className="relative z-10 w-[85%] max-w-[400px] drop-shadow-[0_0_40px_hsl(260_80%_62%_/_0.25)]"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                />
+
+                {/* Corner accents */}
+                <div className="absolute top-3 left-3 w-4 h-4 border-t border-l border-primary/30 rounded-tl-md" />
+                <div className="absolute top-3 right-3 w-4 h-4 border-t border-r border-primary/30 rounded-tr-md" />
+                <div className="absolute bottom-3 left-3 w-4 h-4 border-b border-l border-primary/30 rounded-bl-md" />
+                <div className="absolute bottom-3 right-3 w-4 h-4 border-b border-r border-primary/30 rounded-br-md" />
+              </div>
             </motion.div>
           </div>
 
           {/* Trusted by */}
           <motion.div
-            className="mt-20 pt-10 border-t border-border/30"
+            className="mt-20 pt-8 border-t border-border/30"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
           >
-            <p className="text-center text-[11px] text-muted-foreground/60 uppercase tracking-[0.2em] font-medium mb-6">
+            <p className="text-center text-[11px] text-muted-foreground/50 uppercase tracking-[0.18em] font-medium mb-5">
               Guarding The Industry's Top Apps And Games,
               {" "}From Innovative Startups To Renowned Enterprises.
             </p>
             <div className="flex items-center justify-center gap-10 md:gap-14">
-              {["Google", "Microsoft", "Apple", "Meta"].map((name, i) => (
-                <span key={i} className="text-muted-foreground/30 font-semibold text-sm tracking-wide">{name}</span>
+              {[
+                { icon: "△", name: "Unity" },
+                { icon: "◈", name: "Ubisoft" },
+                { icon: "", name: "Apple" },
+                { icon: "∞", name: "Meta" },
+              ].map((item, i) => (
+                <span key={i} className="text-muted-foreground/30 font-semibold text-xs tracking-wider flex items-center gap-1.5">
+                  <span className="text-base">{item.icon}</span> {item.name}
+                </span>
               ))}
             </div>
           </motion.div>
