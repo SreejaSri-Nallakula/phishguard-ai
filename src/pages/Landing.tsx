@@ -90,29 +90,72 @@ export default function Landing() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.9, delay: 0.2 }}
             >
-              <div className="relative w-full aspect-[4/3] rounded-2xl border border-border/50 bg-background/40 overflow-hidden">
+              <div className="relative w-full aspect-[4/3] rounded-2xl border border-border/50 bg-card/20 overflow-hidden">
                 {/* Grid inside frame */}
-                <div className="absolute inset-0 grid-bg opacity-30" />
+                <div className="absolute inset-0 grid-bg opacity-20" />
 
                 {/* Glow behind orb */}
-                <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-primary/15 blur-[100px]" />
+                <div className="absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] rounded-full bg-primary/20 blur-[100px]" />
 
-                {/* Orb image centered in frame */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <motion.img
-                    src={heroOrb}
-                    alt="AI Security"
-                    className="w-[70%] max-w-[380px] drop-shadow-[0_0_50px_hsl(260_80%_62%_/_0.3)]"
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  />
+                {/* Isometric platform SVG */}
+                <svg className="absolute bottom-[15%] left-1/2 -translate-x-1/2 w-[75%]" viewBox="0 0 400 220" fill="none">
+                  {/* Platform base */}
+                  <polygon points="200,30 370,120 200,210 30,120" fill="none" stroke="hsl(260 80% 62% / 0.15)" strokeWidth="1" />
+                  <polygon points="200,35 360,120 200,205 40,120" fill="hsl(230 25% 8% / 0.6)" stroke="hsl(260 80% 62% / 0.25)" strokeWidth="0.5" />
+                  
+                  {/* Inner hexagonal lines */}
+                  <polygon points="200,65 310,120 200,175 90,120" fill="none" stroke="hsl(260 80% 62% / 0.12)" strokeWidth="0.5" />
+                  <polygon points="200,90 265,120 200,150 135,120" fill="none" stroke="hsl(260 80% 62% / 0.1)" strokeWidth="0.5" />
+                  
+                  {/* Connection lines */}
+                  <line x1="200" y1="35" x2="200" y2="205" stroke="hsl(260 80% 62% / 0.08)" strokeWidth="0.5" />
+                  <line x1="40" y1="120" x2="360" y2="120" stroke="hsl(260 80% 62% / 0.08)" strokeWidth="0.5" />
+                  <line x1="120" y1="75" x2="280" y2="165" stroke="hsl(260 80% 62% / 0.06)" strokeWidth="0.5" />
+                  <line x1="280" y1="75" x2="120" y2="165" stroke="hsl(260 80% 62% / 0.06)" strokeWidth="0.5" />
+                  
+                  {/* Node dots on vertices */}
+                  {[
+                    [200, 35], [360, 120], [200, 205], [40, 120],
+                    [200, 65], [310, 120], [200, 175], [90, 120],
+                    [200, 90], [265, 120], [200, 150], [135, 120],
+                    [200, 120], [150, 97], [250, 97], [150, 143], [250, 143],
+                  ].map(([cx, cy], i) => (
+                    <g key={i}>
+                      <circle cx={cx} cy={cy} r="3" fill="hsl(260 80% 62% / 0.5)" />
+                      <circle cx={cx} cy={cy} r="1.5" fill="hsl(260 80% 62%)" />
+                    </g>
+                  ))}
+                </svg>
+
+                {/* Floating orb above platform */}
+                <div className="absolute top-[8%] left-1/2 -translate-x-1/2 w-[35%]">
+                  <motion.div
+                    animate={{ y: [0, -8, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <div
+                      className="w-full aspect-square rounded-full"
+                      style={{
+                        background: "radial-gradient(circle at 35% 35%, hsl(280 75% 70% / 0.8), hsl(260 80% 50% / 0.6) 40%, hsl(260 80% 30% / 0.3) 70%, transparent 100%)",
+                        boxShadow: "0 0 60px 20px hsl(260 80% 62% / 0.25), 0 20px 40px -10px hsl(260 80% 62% / 0.3)",
+                        filter: "blur(1px)",
+                      }}
+                    />
+                  </motion.div>
                 </div>
 
+                {/* Scan line animation */}
+                <motion.div
+                  className="absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent"
+                  animate={{ top: ["20%", "80%", "20%"] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                />
+
                 {/* Corner decorations */}
-                <div className="absolute top-4 left-4 w-5 h-5 border-t border-l border-primary/25 rounded-tl" />
-                <div className="absolute top-4 right-4 w-5 h-5 border-t border-r border-primary/25 rounded-tr" />
-                <div className="absolute bottom-4 left-4 w-5 h-5 border-b border-l border-primary/25 rounded-bl" />
-                <div className="absolute bottom-4 right-4 w-5 h-5 border-b border-r border-primary/25 rounded-br" />
+                <div className="absolute top-3 left-3 w-5 h-5 border-t border-l border-primary/20 rounded-tl" />
+                <div className="absolute top-3 right-3 w-5 h-5 border-t border-r border-primary/20 rounded-tr" />
+                <div className="absolute bottom-3 left-3 w-5 h-5 border-b border-l border-primary/20 rounded-bl" />
+                <div className="absolute bottom-3 right-3 w-5 h-5 border-b border-r border-primary/20 rounded-br" />
               </div>
             </motion.div>
           </div>
