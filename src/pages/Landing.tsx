@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { Shield, Search, FileText, Zap, Globe, BarChart3, AlertTriangle, Lock, ChevronRight, Mail, CheckCircle2, ArrowRight } from "lucide-react";
+import { Shield, Search, FileText, Zap, Globe, BarChart3, AlertTriangle, Lock, ChevronRight, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import heroOrb from "@/assets/hero-orb.png";
 
 const fadeUp = { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.6 } };
 
@@ -19,50 +20,34 @@ const features = [
   { icon: Shield, title: "Security Recommendations", desc: "Actionable advice tailored to each threat level" },
 ];
 
-const logoNames = [
-  { name: "Google", icon: "G" },
-  { name: "Microsoft", icon: "M" },
-  { name: "Apple", icon: "" },
-  { name: "Meta", icon: "∞" },
-];
-
 export default function Landing() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden min-h-[90vh] flex items-center">
-        {/* Dark background with gradient orbs */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {/* Large purple orb - center right */}
-          <div className="absolute top-1/2 right-[20%] -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-primary/20 blur-[150px]" />
-          {/* Secondary accent orb */}
-          <div className="absolute top-[30%] left-[10%] w-[300px] h-[300px] rounded-full bg-accent/10 blur-[120px]" />
-          {/* Bottom subtle glow */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[200px] bg-primary/5 blur-[100px]" />
-          {/* Grid overlay */}
-          <div className="absolute inset-0 grid-bg opacity-40" />
+      <section className="relative overflow-hidden min-h-[92vh] flex items-center">
+        {/* Background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 grid-bg opacity-30" />
+          <div className="absolute top-1/2 right-[25%] -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-primary/15 blur-[180px]" />
         </div>
 
-        <div className="container mx-auto px-4 relative z-10 py-20">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-6xl mx-auto">
-            {/* Left content */}
+        <div className="container mx-auto px-4 relative z-10 py-16">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-8 items-center max-w-6xl mx-auto">
+            {/* Left */}
             <div>
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5 mb-8"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5 mb-8"
               >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                </span>
-                <span className="text-sm text-primary font-medium">Real-time threat detection</span>
+                <Shield className="h-3.5 w-3.5 text-primary" />
+                <span className="text-sm text-primary/90 font-medium">AI-Powered Email Protection</span>
               </motion.div>
 
               <motion.h1
-                className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold leading-[1.1] tracking-tight mb-6"
-                initial={{ opacity: 0, y: 25 }}
+                className="text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.08] tracking-tight mb-6"
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
               >
@@ -73,23 +58,23 @@ export default function Landing() {
               </motion.h1>
 
               <motion.p
-                className="text-muted-foreground text-base md:text-lg max-w-[460px] leading-relaxed mb-10"
-                initial={{ opacity: 0, y: 15 }}
+                className="text-muted-foreground text-[15px] md:text-base max-w-[440px] leading-relaxed mb-10"
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.35 }}
               >
-                AI-powered email security that detects and blocks sophisticated phishing threats before they reach you. Paste, scan, and stay safe.
+                Advanced AI that detects phishing emails in real-time. Simply paste suspicious content and get instant threat analysis with actionable insights.
               </motion.p>
 
               <motion.div
-                className="flex flex-col sm:flex-row gap-3 mb-10"
-                initial={{ opacity: 0, y: 15 }}
+                className="flex flex-col sm:flex-row gap-3"
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
                 <Link
                   to="/analyzer"
-                  className="group inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl font-semibold bg-primary text-primary-foreground shadow-[var(--neon-glow-strong)] hover:brightness-110 transition-all"
+                  className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold bg-primary text-primary-foreground shadow-[var(--neon-glow-strong)] hover:brightness-110 transition-all"
                 >
                   Start Scanning
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -101,119 +86,39 @@ export default function Landing() {
                   Learn More
                 </Link>
               </motion.div>
-
-              <motion.div
-                className="flex items-center gap-6"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.7 }}
-              >
-                {[
-                  { val: "99.2%", label: "Accuracy" },
-                  { val: "< 2s", label: "Scan Speed" },
-                  { val: "50K+", label: "Threats Blocked" },
-                ].map((s, i) => (
-                  <div key={i} className="flex flex-col">
-                    <span className="text-lg font-bold text-foreground">{s.val}</span>
-                    <span className="text-xs text-muted-foreground">{s.label}</span>
-                  </div>
-                ))}
-              </motion.div>
             </div>
 
-            {/* Right - 3D-style visual */}
+            {/* Right - 3D orb image */}
             <motion.div
-              className="relative hidden lg:flex items-center justify-center"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              className="relative flex items-center justify-center"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.3 }}
             >
-              <div className="relative w-full max-w-[420px] aspect-square">
-                {/* Outer ring */}
-                <div className="absolute inset-0 rounded-full border border-primary/10" />
-                <div className="absolute inset-4 rounded-full border border-primary/15" />
-                <div className="absolute inset-10 rounded-full border border-primary/20" />
-
-                {/* Center glowing orb */}
-                <motion.div
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full"
-                  style={{
-                    background: "radial-gradient(circle, hsl(260 80% 62% / 0.6) 0%, hsl(280 75% 60% / 0.3) 40%, transparent 70%)",
-                    boxShadow: "0 0 80px 30px hsl(260 80% 62% / 0.2)",
-                  }}
-                  animate={{ scale: [1, 1.08, 1] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                />
-
-                {/* Shield center icon */}
-                <motion.div
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <Shield className="h-16 w-16 text-primary drop-shadow-[0_0_20px_hsl(260_80%_62%_/_0.6)]" />
-                </motion.div>
-
-                {/* Orbiting elements */}
-                <motion.div
-                  className="absolute top-6 right-12 glass-card px-3 py-2 rounded-lg border-primary/20"
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <div className="flex items-center gap-2">
-                    <Mail className="h-3.5 w-3.5 text-destructive" />
-                    <span className="text-[11px] font-medium text-foreground">Threat Found</span>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  className="absolute bottom-12 left-4 glass-card px-3 py-2 rounded-lg border-safe/20"
-                  animate={{ y: [0, 8, 0] }}
-                  transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                >
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-safe" />
-                    <span className="text-[11px] font-medium text-foreground">Email Safe</span>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  className="absolute top-1/2 -right-2 glass-card px-3 py-2 rounded-lg border-primary/20"
-                  animate={{ y: [0, -6, 0] }}
-                  transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                >
-                  <div className="flex items-center gap-2">
-                    <Search className="h-3.5 w-3.5 text-primary" />
-                    <span className="text-[11px] font-medium text-foreground">Scanning...</span>
-                  </div>
-                </motion.div>
-
-                {/* Dotted orbit path */}
-                <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 420 420">
-                  <circle cx="210" cy="210" r="160" fill="none" stroke="hsl(260 80% 62%)" strokeWidth="0.5" strokeDasharray="4 6" />
-                  <circle cx="210" cy="210" r="120" fill="none" stroke="hsl(260 80% 62%)" strokeWidth="0.5" strokeDasharray="3 5" />
-                </svg>
-              </div>
+              <motion.img
+                src={heroOrb}
+                alt="AI Security Shield"
+                className="w-full max-w-[480px] drop-shadow-[0_0_60px_hsl(260_80%_62%_/_0.3)]"
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              />
             </motion.div>
           </div>
 
-          {/* Trusted by bar */}
+          {/* Trusted by */}
           <motion.div
-            className="mt-20 pt-10 border-t border-border/40"
+            className="mt-20 pt-10 border-t border-border/30"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 1 }}
           >
-            <p className="text-center text-xs text-muted-foreground uppercase tracking-[0.2em] font-medium mb-6">
+            <p className="text-center text-[11px] text-muted-foreground/60 uppercase tracking-[0.2em] font-medium mb-6">
               Guarding The Industry's Top Apps And Games,
-              <br className="sm:hidden" />
               {" "}From Innovative Startups To Renowned Enterprises.
             </p>
-            <div className="flex items-center justify-center gap-10 md:gap-16">
-              {logoNames.map((item, i) => (
-                <span key={i} className="text-muted-foreground/40 font-semibold text-sm tracking-wide flex items-center gap-1.5">
-                  <span className="text-lg">{item.icon}</span> {item.name}
-                </span>
+            <div className="flex items-center justify-center gap-10 md:gap-14">
+              {["Google", "Microsoft", "Apple", "Meta"].map((name, i) => (
+                <span key={i} className="text-muted-foreground/30 font-semibold text-sm tracking-wide">{name}</span>
               ))}
             </div>
           </motion.div>
