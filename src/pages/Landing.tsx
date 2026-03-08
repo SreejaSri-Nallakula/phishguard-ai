@@ -23,34 +23,106 @@ export default function Landing() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden py-24 md:py-36">
-        {/* Animated background orbs */}
+      <section className="relative overflow-hidden py-28 md:py-40">
+        {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px] animate-pulse-slow" />
-          <div className="absolute -bottom-40 -left-40 w-[400px] h-[400px] rounded-full bg-primary/5 blur-[100px] animate-pulse-slow" />
+          <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-primary/6 blur-[140px] animate-pulse-slow" />
+          <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-accent/6 blur-[120px] animate-pulse-slow" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-primary/4 blur-[100px]" />
+        </div>
+
+        {/* Floating shield icons */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            className="absolute top-20 left-[15%] opacity-[0.07]"
+            animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <Shield className="h-16 w-16 text-primary" />
+          </motion.div>
+          <motion.div
+            className="absolute top-32 right-[18%] opacity-[0.06]"
+            animate={{ y: [0, 15, 0], rotate: [0, -8, 0] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          >
+            <Lock className="h-12 w-12 text-primary" />
+          </motion.div>
+          <motion.div
+            className="absolute bottom-24 left-[22%] opacity-[0.05]"
+            animate={{ y: [0, -12, 0], rotate: [0, 6, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          >
+            <AlertTriangle className="h-14 w-14 text-destructive" />
+          </motion.div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <motion.div className="max-w-3xl mx-auto text-center" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm font-medium mb-8">
-              <Shield className="h-4 w-4" /> AI-Powered Email Security
-            </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm font-medium mb-8"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              AI-Powered Email Security
+            </motion.div>
+
+            <motion.h1
+              className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+            >
               <span className="gradient-text">AI Phishing</span>
               <br />
               <span className="text-foreground">Email Detector</span>
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-10">
+            </motion.h1>
+
+            <motion.p
+              className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
               Protect yourself from phishing attacks using intelligent AI email analysis. Detect threats before they reach you.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/analyzer" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold bg-primary text-primary-foreground shadow-[var(--neon-glow-strong)] hover:shadow-[var(--neon-glow)] transition-all hover:scale-105">
-                Start Scanning <ChevronRight className="h-4 w-4" />
+            </motion.p>
+
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.65 }}
+            >
+              <Link to="/analyzer" className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold bg-primary text-primary-foreground shadow-[var(--neon-glow-strong)] hover:shadow-[var(--neon-glow)] transition-all hover:scale-105">
+                Start Scanning <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link to="/education" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold border border-border text-foreground hover:bg-secondary/50 transition-all">
+              <Link to="/education" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-semibold border border-border text-foreground hover:bg-secondary/50 transition-all hover:scale-105">
                 Learn About Phishing
               </Link>
-            </div>
+            </motion.div>
+
+            {/* Stats bar */}
+            <motion.div
+              className="mt-16 grid grid-cols-3 gap-6 max-w-lg mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.85 }}
+            >
+              {[
+                { value: "99.2%", label: "Detection Rate" },
+                { value: "< 2s", label: "Scan Speed" },
+                { value: "50K+", label: "Threats Blocked" },
+              ].map((stat, i) => (
+                <div key={i} className="text-center">
+                  <div className="text-xl md:text-2xl font-bold text-primary">{stat.value}</div>
+                  <div className="text-xs text-muted-foreground mt-1">{stat.label}</div>
+                </div>
+              ))}
+            </motion.div>
           </motion.div>
         </div>
       </section>
