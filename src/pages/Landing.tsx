@@ -30,7 +30,7 @@ export default function Landing() {
 
         <div className="container mx-auto px-4 relative z-10">
           {/* Main hero area */}
-          <div className="relative min-h-[80vh] flex items-center py-16">
+          <div className="grid md:grid-cols-2 gap-8 items-center min-h-[80vh] py-16">
             {/* Left text content - absolutely positioned to ensure correct placement */}
             <motion.div
               className="relative z-20 max-w-[500px]"
@@ -85,7 +85,7 @@ export default function Landing() {
 
             {/* Right visual - bordered frame with orb */}
             <motion.div
-              className="absolute top-1/2 -translate-y-1/2 right-0 w-[55%] hidden lg:block"
+              className="relative w-full"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.9, delay: 0.2 }}
