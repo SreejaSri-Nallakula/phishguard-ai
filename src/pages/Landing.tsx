@@ -78,20 +78,62 @@ export default function Landing() {
               </div>
             </motion.div>
 
-            {/* Right - Hacker image */}
+            {/* Right - Hacker visual */}
             <motion.div
-              className="flex items-center justify-center"
+              className="relative flex items-center justify-center"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <motion.img
-                src={hackerHero}
-                alt="Cyber threat illustration"
-                className="w-full max-w-[420px] drop-shadow-[0_0_40px_hsl(260_80%_62%_/_0.2)]"
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              />
+              {/* Glow backdrop */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-[70%] aspect-square rounded-full bg-primary/15 blur-[100px]" />
+              </div>
+
+              {/* Bordered container */}
+              <div className="relative w-full max-w-[480px] mx-auto rounded-2xl border border-border/40 bg-card/30 backdrop-blur-sm overflow-hidden p-6">
+                {/* Grid overlay inside */}
+                <div className="absolute inset-0 grid-bg opacity-15 pointer-events-none" />
+
+                {/* Corner accents */}
+                <div className="absolute top-3 left-3 w-5 h-5 border-t border-l border-primary/25 rounded-tl" />
+                <div className="absolute top-3 right-3 w-5 h-5 border-t border-r border-primary/25 rounded-tr" />
+                <div className="absolute bottom-3 left-3 w-5 h-5 border-b border-l border-primary/25 rounded-bl" />
+                <div className="absolute bottom-3 right-3 w-5 h-5 border-b border-r border-primary/25 rounded-br" />
+
+                {/* Image with glow */}
+                <motion.img
+                  src={hackerHero}
+                  alt="Cyber threat illustration"
+                  className="relative z-10 w-full rounded-xl mix-blend-lighten"
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                />
+
+                {/* Status indicators */}
+                <motion.div
+                  className="absolute top-5 right-5 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-destructive/15 border border-destructive/25 backdrop-blur-md"
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1 }}
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-destructive opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-destructive"></span>
+                  </span>
+                  <span className="text-[10px] font-semibold text-destructive">Threat Active</span>
+                </motion.div>
+
+                <motion.div
+                  className="absolute bottom-5 left-5 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1.3 }}
+                >
+                  <Shield className="h-3 w-3 text-primary" />
+                  <span className="text-[10px] font-semibold text-primary">AI Scanning</span>
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
