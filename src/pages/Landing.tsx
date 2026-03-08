@@ -85,7 +85,7 @@ export default function Landing() {
 
             {/* Right visual - bordered frame with orb */}
             <motion.div
-              className="absolute top-1/2 -translate-y-1/2 right-0 w-[55%] hidden lg:block"
+              className="relative w-full"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.9, delay: 0.2 }}
