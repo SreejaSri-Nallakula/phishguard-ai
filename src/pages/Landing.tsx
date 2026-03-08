@@ -88,6 +88,13 @@ export default function Landing() {
         {/* Bottom border line */}
         <div className="border-b border-border/30" />
       </section>
+      {/* ===== HOW IT WORKS ===== */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <motion.div {...fadeUp} className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
+            <p className="text-muted-foreground max-w-md mx-auto">Three simple steps to detect phishing emails</p>
+          </motion.div>
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {steps.map((step, i) => (
               <motion.div key={i} {...fadeUp} transition={{ duration: 0.6, delay: i * 0.15 }} className="glass-card-hover p-8 text-center relative">
