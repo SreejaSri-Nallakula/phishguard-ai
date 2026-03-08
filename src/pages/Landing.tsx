@@ -30,33 +30,29 @@ export default function Landing() {
 
         <div className="container mx-auto px-4 relative z-10">
           {/* Main hero area */}
-          <div className="flex items-center min-h-[80vh] py-16">
-            {/* Left text content - absolutely positioned to ensure correct placement */}
+          <div className="grid md:grid-cols-2 gap-8 items-center min-h-[80vh] py-16">
+            {/* Left text content */}
             <motion.div
               className="relative z-20 max-w-[500px]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
             >
-              {/* Small badge */}
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-secondary/40 mb-6">
                 <Shield className="h-3 w-3 text-primary" />
                 <span className="text-[11px] text-muted-foreground font-medium">Real-time phishing detection platform</span>
               </div>
 
-              {/* Main heading */}
               <h1 className="text-[2.75rem] md:text-[3.25rem] lg:text-[3.5rem] font-extrabold leading-[1.05] tracking-tight mb-5 text-foreground">
                 Protect Your Inbox
                 <br />
                 Against Phishing
               </h1>
 
-              {/* Subtitle */}
               <p className="text-muted-foreground text-sm leading-relaxed max-w-[380px] mb-8">
                 Advanced AI engine that scans and detects phishing emails in real-time. Protect your organization from sophisticated email threats.
               </p>
 
-              {/* Buttons */}
               <div className="flex items-center gap-3 mb-6">
                 <Link
                   to="/analyzer"
@@ -72,7 +68,6 @@ export default function Landing() {
                 </Link>
               </div>
 
-              {/* Checkmarks */}
               <div className="flex items-center gap-5">
                 {["No credit card required", "Instant results", "Free to use"].map((item, i) => (
                   <div key={i} className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
@@ -81,6 +76,22 @@ export default function Landing() {
                   </div>
                 ))}
               </div>
+            </motion.div>
+
+            {/* Right - Hacker image */}
+            <motion.div
+              className="flex items-center justify-center"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <motion.img
+                src={hackerHero}
+                alt="Cyber threat illustration"
+                className="w-full max-w-[420px] drop-shadow-[0_0_40px_hsl(260_80%_62%_/_0.2)]"
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              />
             </motion.div>
           </div>
         </div>
