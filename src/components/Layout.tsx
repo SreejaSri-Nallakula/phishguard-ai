@@ -16,23 +16,23 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background">
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-md border-b border-border">
-        <div className="container mx-auto flex items-center justify-between h-14 px-4">
+    <div className="min-h-screen bg-background grid-bg">
+      <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-t-0 border-x-0 rounded-none">
+        <div className="container mx-auto flex items-center justify-between h-16 px-4">
           <Link to="/" className="flex items-center gap-2">
-            <Shield className="h-6 w-6 text-primary" />
-            <span className="text-base font-semibold text-foreground tracking-tight">PhishGuard AI</span>
+            <Shield className="h-7 w-7 neon-text" />
+            <span className="text-lg font-bold gradient-text">PhishGuard AI</span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-0.5">
+          <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   location.pathname === item.path
-                    ? "bg-accent text-primary"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    ? "bg-primary/10 neon-text neon-border"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                 }`}
               >
                 {item.label}
@@ -40,14 +40,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             ))}
             <Link
               to="/login"
-              className="ml-4 px-4 py-1.5 rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+              className="ml-3 px-5 py-2 rounded-lg text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-[var(--neon-glow)]"
             >
               Login
             </Link>
           </div>
 
           <button className="md:hidden text-foreground" onClick={() => setMobileOpen(!mobileOpen)}>
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileOpen ? <X /> : <Menu />}
           </button>
         </div>
 
@@ -59,20 +59,20 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               exit={{ height: 0, opacity: 0 }}
               className="md:hidden overflow-hidden border-t border-border"
             >
-              <div className="p-3 flex flex-col gap-1">
+              <div className="p-4 flex flex-col gap-2">
                 {navItems.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
                     onClick={() => setMobileOpen(false)}
-                    className={`px-3 py-2 rounded-md text-sm font-medium ${
-                      location.pathname === item.path ? "bg-accent text-primary" : "text-muted-foreground"
+                    className={`px-4 py-2 rounded-lg text-sm font-medium ${
+                      location.pathname === item.path ? "bg-primary/10 neon-text" : "text-muted-foreground"
                     }`}
                   >
                     {item.label}
                   </Link>
                 ))}
-                <Link to="/login" onClick={() => setMobileOpen(false)} className="px-3 py-2 rounded-md text-sm font-medium bg-primary text-primary-foreground">
+                <Link to="/login" onClick={() => setMobileOpen(false)} className="px-4 py-2 rounded-lg text-sm font-semibold bg-primary text-primary-foreground">
                   Login
                 </Link>
               </div>
@@ -81,13 +81,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </AnimatePresence>
       </nav>
 
-      <main className="pt-14">{children}</main>
+      <main className="pt-16">{children}</main>
 
-      <footer className="border-t border-border py-6 mt-16">
-        <div className="container mx-auto px-4 text-center text-muted-foreground text-xs">
-          <div className="flex items-center justify-center gap-1.5 mb-1">
-            <Shield className="h-3.5 w-3.5 text-primary" />
-            <span className="font-medium text-foreground">PhishGuard AI</span>
+      <footer className="border-t border-border py-8 mt-20">
+        <div className="container mx-auto px-4 text-center text-muted-foreground text-sm">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <Shield className="h-4 w-4 neon-text" />
+            <span className="font-semibold gradient-text">PhishGuard AI</span>
           </div>
           <p>© 2026 PhishGuard AI. Intelligent Email Phishing Detection Platform.</p>
         </div>
