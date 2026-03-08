@@ -83,67 +83,6 @@ export default function Landing() {
               </div>
             </motion.div>
 
-            {/* Right visual - seamless */}
-            <motion.div
-              className="relative w-full flex items-center justify-center"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.9, delay: 0.2 }}
-            >
-              <div className="relative w-full max-w-[440px] mx-auto">
-                {/* Subtle glow */}
-                <div className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[200px] h-[200px] rounded-full bg-primary/15 blur-[80px] pointer-events-none" />
-
-                {/* Isometric platform SVG */}
-                <svg className="relative z-0 w-full" viewBox="0 0 400 240" fill="none">
-                  {/* Platform base */}
-                  <polygon points="200,30 380,125 200,220 20,125" fill="hsl(230 25% 6% / 0.8)" stroke="hsl(260 80% 62% / 0.2)" strokeWidth="1" />
-                  <polygon points="200,40 365,125 200,210 35,125" fill="none" stroke="hsl(260 80% 62% / 0.12)" strokeWidth="0.5" />
-
-                  {/* Inner diamond lines */}
-                  <polygon points="200,70 320,125 200,180 80,125" fill="none" stroke="hsl(260 80% 62% / 0.1)" strokeWidth="0.5" />
-                  <polygon points="200,95 270,125 200,155 130,125" fill="none" stroke="hsl(260 80% 62% / 0.08)" strokeWidth="0.5" />
-
-                  {/* Cross lines */}
-                  <line x1="200" y1="30" x2="200" y2="220" stroke="hsl(260 80% 62% / 0.06)" strokeWidth="0.5" />
-                  <line x1="20" y1="125" x2="380" y2="125" stroke="hsl(260 80% 62% / 0.06)" strokeWidth="0.5" />
-                  <line x1="110" y1="77" x2="290" y2="173" stroke="hsl(260 80% 62% / 0.05)" strokeWidth="0.5" />
-                  <line x1="290" y1="77" x2="110" y2="173" stroke="hsl(260 80% 62% / 0.05)" strokeWidth="0.5" />
-
-                  {/* Node dots */}
-                  {[
-                    [200, 30], [380, 125], [200, 220], [20, 125],
-                    [200, 70], [320, 125], [200, 180], [80, 125],
-                    [200, 95], [270, 125], [200, 155], [130, 125],
-                    [200, 125], [145, 100], [255, 100], [145, 150], [255, 150],
-                  ].map(([cx, cy], i) => (
-                    <g key={i}>
-                      <circle cx={cx} cy={cy} r="3.5" fill="hsl(260 80% 62% / 0.3)" />
-                      <circle cx={cx} cy={cy} r="1.5" fill="hsl(260 80% 62% / 0.9)" />
-                    </g>
-                  ))}
-
-                  {/* Center glow */}
-                  <circle cx="200" cy="125" r="8" fill="hsl(260 80% 62% / 0.15)" />
-                  <circle cx="200" cy="125" r="3" fill="hsl(260 80% 62% / 0.6)" />
-                </svg>
-              </div>
-            </motion.div>
-          </div>
-
-        </div>
-
-        {/* Bottom border line */}
-        <div className="border-b border-border/30" />
-      </section>
-
-      {/* ===== HOW IT WORKS ===== */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <motion.div {...fadeUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
-            <p className="text-muted-foreground max-w-md mx-auto">Three simple steps to detect phishing emails</p>
-          </motion.div>
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {steps.map((step, i) => (
               <motion.div key={i} {...fadeUp} transition={{ duration: 0.6, delay: i * 0.15 }} className="glass-card-hover p-8 text-center relative">
