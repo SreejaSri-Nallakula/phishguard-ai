@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Search, Trash2, Upload, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { analyzeEmail, type AnalysisResult } from "@/lib/phishingAnalyzer";
@@ -8,18 +8,18 @@ export default function Analyzer() {
   const [emailContent, setEmailContent] = useState("");
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleAnalyze = async () => {
     if (!emailContent.trim()) return;
     setAnalyzing(true);
     setResult(null);
-    // Simulate AI processing time
     await new Promise((r) => setTimeout(r, 1800));
     const res = analyzeEmail(emailContent);
     setResult(res);
     setAnalyzing(false);
 
-    // Save to history
     const history = JSON.parse(localStorage.getItem("phishguard_history") || "[]");
     history.unshift({
       id: Date.now(),
@@ -31,6 +31,29 @@ export default function Analyzer() {
       result: res,
     });
     localStorage.setItem("phishguard_history", JSON.stringify(history.slice(0, 50)));
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.type.startsWith("text/") || file.name.endsWith(".eml") || file.name.endsWith(".msg") || file.name.endsWith(".txt")) {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const text = ev.target?.result as string;
+        setEmailContent(text);
+        setUploadedFile(file.name);
+      };
+      reader.readAsText(file);
+    } else if (file.type.startsWith("image/")) {
+      setUploadedFile(file.name);
+      setEmailContent(`[Uploaded screenshot: ${file.name}]\n\nNote: Screenshot analysis is a preview feature. For best results, paste the email text directly.`);
+    } else {
+      setUploadedFile(file.name);
+      setEmailContent(`[Uploaded file: ${file.name}]\n\nUnsupported format. Please paste email text or upload a .txt/.eml file.`);
+    }
+
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   return (
@@ -63,20 +86,34 @@ export default function Analyzer() {
               {analyzing ? "Analyzing..." : "Analyze Email"}
             </button>
             <button
-              onClick={() => { setEmailContent(""); setResult(null); }}
+              onClick={() => { setEmailContent(""); setResult(null); setUploadedFile(null); }}
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium border border-border text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-all"
             >
               <Trash2 className="h-4 w-4" /> Clear
             </button>
           </div>
 
-          <div className="mt-4 flex items-center gap-3 p-4 rounded-xl border border-dashed border-border text-muted-foreground text-sm">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".txt,.eml,.msg,image/*"
+            onChange={handleFileUpload}
+            className="hidden"
+          />
+          <div
+            onClick={() => fileInputRef.current?.click()}
+            className="mt-4 flex items-center gap-3 p-4 rounded-xl border border-dashed border-border text-muted-foreground text-sm cursor-pointer hover:border-primary/50 hover:bg-secondary/20 transition-all"
+          >
             <Upload className="h-5 w-5 flex-shrink-0" />
-            <span>Upload email screenshot — <span className="text-primary cursor-pointer hover:underline">Browse files</span> (feature coming soon)</span>
+            <span>
+              {uploadedFile
+                ? <>Uploaded: <span className="text-primary font-medium">{uploadedFile}</span></>
+                : <>Upload email file or screenshot — <span className="text-primary font-medium hover:underline">Browse files</span></>
+              }
+            </span>
           </div>
         </motion.div>
 
-        {/* Scanning animation */}
         <AnimatePresence>
           {analyzing && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="mt-8 glass-card p-8 relative overflow-hidden">
@@ -91,7 +128,6 @@ export default function Analyzer() {
           )}
         </AnimatePresence>
 
-        {/* Results */}
         <AnimatePresence>
           {result && !analyzing && (
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
