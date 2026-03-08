@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Shield, Search, FileText, Zap, Globe, BarChart3, AlertTriangle, Lock, ChevronRight, ArrowRight, Check } from "lucide-react";
 import { motion } from "framer-motion";
-import heroOrb from "@/assets/hero-orb.png";
+import hackerHero from "@/assets/hacker-hero.png";
 
 const fadeUp = { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.6 } };
 
