@@ -117,30 +117,6 @@ export default function Landing() {
             </motion.div>
           </div>
 
-          {/* Trusted by bar */}
-          <motion.div
-            className="pb-12 pt-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-          >
-            <p className="text-center text-[11px] text-muted-foreground/40 tracking-[0.15em] font-medium mb-5">
-              Guarding The Industry's Top Apps And Games,
-              {" "}From Innovative Startups To Renowned Enterprises.
-            </p>
-            <div className="flex items-center justify-center gap-10 md:gap-16">
-              {[
-                { sym: "△", name: "Unity" },
-                { sym: "◎", name: "Ubisoft" },
-                { sym: "", name: "Apple" },
-                { sym: "∞∞", name: "Meta" },
-              ].map((item, i) => (
-                <span key={i} className="text-muted-foreground/25 font-semibold text-xs tracking-wider flex items-center gap-1.5">
-                  <span className="text-sm">{item.sym}</span> {item.name}
-                </span>
-              ))}
-            </div>
-          </motion.div>
         </div>
 
         {/* Bottom border line */}
