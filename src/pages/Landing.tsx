@@ -82,7 +82,12 @@ export default function Landing() {
                 ))}
               </div>
             </motion.div>
+          </div>
+        </div>
 
+        {/* Bottom border line */}
+        <div className="border-b border-border/30" />
+      </section>
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {steps.map((step, i) => (
               <motion.div key={i} {...fadeUp} transition={{ duration: 0.6, delay: i * 0.15 }} className="glass-card-hover p-8 text-center relative">
