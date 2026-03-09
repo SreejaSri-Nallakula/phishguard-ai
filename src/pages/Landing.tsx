@@ -12,6 +12,21 @@ const heroCards = [
   { icon: AlertTriangle, label: "Threat Alert", color: "from-amber-500 to-red-500", rotate: "12deg", detail: "Domain spoofing attempt" },
 ];
 
+const steps = [
+  { icon: FileText, title: "Paste Email", desc: "Copy the suspicious email content into our analyzer" },
+  { icon: Search, title: "AI Analysis", desc: "Our AI engine scans for phishing indicators in real-time" },
+  { icon: BarChart3, title: "Get Report", desc: "Receive a detailed security report with risk score" },
+];
+
+const features = [
+  { icon: Zap, title: "AI Phishing Detection", desc: "Advanced NLP models detect sophisticated phishing attempts" },
+  { icon: AlertTriangle, title: "Suspicious Phrase Detection", desc: "Highlights urgent language and social engineering tactics" },
+  { icon: Globe, title: "Domain Reputation Check", desc: "Verifies sender domains against threat intelligence databases" },
+  { icon: BarChart3, title: "Risk Score Meter", desc: "Quantified threat assessment from 0 to 100" },
+  { icon: Lock, title: "Link Scanner", desc: "Analyzes embedded URLs for malicious redirects" },
+  { icon: Shield, title: "Security Recommendations", desc: "Actionable advice tailored to each threat level" },
+];
+
 export default function Landing() {
   return (
     <>
