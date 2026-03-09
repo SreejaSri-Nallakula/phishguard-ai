@@ -1,16 +1,8 @@
 import { Link } from "react-router-dom";
-import { Shield, Search, FileText, Zap, Globe, BarChart3, AlertTriangle, Lock, ChevronRight, ArrowRight, Check, Mail, ShieldAlert, ShieldCheck, Eye } from "lucide-react";
+import { Shield, Search, FileText, Zap, Globe, BarChart3, AlertTriangle, Lock, ChevronRight, ArrowRight, Check, Mail, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 
 const fadeUp = { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.6 } };
-
-const heroCards = [
-  { icon: ShieldAlert, label: "Phishing Detected", color: "from-red-500 to-orange-500", rotate: "-12deg", detail: "Suspicious sender + urgency tactics" },
-  { icon: Mail, label: "Email Scanned", color: "from-primary to-accent", rotate: "-6deg", detail: "AI analysis in 2.3 seconds" },
-  { icon: Eye, label: "Link Analysis", color: "from-violet-500 to-purple-600", rotate: "0deg", detail: "3 malicious URLs found" },
-  { icon: ShieldCheck, label: "Safe Email", color: "from-emerald-500 to-teal-500", rotate: "6deg", detail: "No threats detected" },
-  { icon: AlertTriangle, label: "Threat Alert", color: "from-amber-500 to-red-500", rotate: "12deg", detail: "Domain spoofing attempt" },
-];
 
 const steps = [
   { icon: FileText, title: "Paste Email", desc: "Copy the suspicious email content into our analyzer" },
@@ -27,75 +19,171 @@ const features = [
   { icon: Shield, title: "Security Recommendations", desc: "Actionable advice tailored to each threat level" },
 ];
 
+const floatingItems = [
+  { icon: Mail, label: "Email Scanned", x: "6%", y: "22%", delay: 0.6 },
+  { icon: ShieldCheck, label: "Safe", x: "87%", y: "28%", delay: 0.9 },
+  { icon: AlertTriangle, label: "Threat Found", x: "4%", y: "68%", delay: 1.2 },
+  { icon: Lock, label: "Secured", x: "89%", y: "62%", delay: 1.5 },
+];
+
 export default function Landing() {
   return (
     <>
       {/* ===== HERO SECTION ===== */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[hsl(260,30%,15%)] via-[hsl(260,25%,20%)] to-[hsl(260,20%,25%)]">
-        {/* Gradient orbs */}
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-primary/20 blur-[150px] pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-accent/15 blur-[120px] pointer-events-none" />
+      <section className="relative overflow-hidden">
+        {/* Animated background orbs */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            className="absolute top-1/4 left-1/4 w-[300px] h-[300px] rounded-full bg-primary/8 blur-[100px]"
+            animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-1/4 right-1/4 w-[250px] h-[250px] rounded-full bg-accent/8 blur-[80px]"
+            animate={{ scale: [1.2, 1, 1.2], opacity: [0.4, 0.7, 0.4] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
+
+        {/* Subtle grid */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{
+          backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+          backgroundSize: "60px 60px"
+        }} />
+
+        {/* Floating badges */}
+        {floatingItems.map((item, i) => (
+          <motion.div
+            key={i}
+            className="absolute hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full glass-card text-xs text-muted-foreground shadow-sm z-10"
+            style={{ left: item.x, top: item.y }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: item.delay }}
+          >
+            <motion.div
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+              className="flex items-center gap-2"
+            >
+              <item.icon className="h-3.5 w-3.5 text-primary" />
+              <span className="font-medium">{item.label}</span>
+            </motion.div>
+          </motion.div>
+        ))}
 
         <div className="container mx-auto px-4 relative z-10">
-          {/* Text content */}
-          <div className="flex flex-col items-center text-center pt-24 pb-8">
+          <div className="flex items-center justify-center min-h-[85vh] py-16">
             <motion.div
+              className="relative z-20 max-w-[620px] text-center mx-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="max-w-[700px]"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-8">
-                <Shield className="h-3.5 w-3.5 text-emerald-400" />
-                <span className="text-xs text-white/60 font-medium">AI-Powered Email Security</span>
-              </div>
+              {/* Animated badge */}
+              <motion.div
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-secondary/40 mb-6"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <motion.div
+                  animate={{ rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Shield className="h-3.5 w-3.5 text-primary" />
+                </motion.div>
+                <span className="text-[11px] text-muted-foreground font-medium">Real-time phishing detection platform</span>
+                <motion.span
+                  className="w-1.5 h-1.5 rounded-full bg-safe"
+                  animate={{ opacity: [1, 0.3, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                />
+              </motion.div>
 
-              <h1 className="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-extrabold leading-[1.05] tracking-tight mb-6">
-                <span className="text-white">Less phishing, </span>
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-primary-foreground">more security.</span>
-                <br />
-                <span className="text-white">Protect your inbox</span>
+              <h1 className="text-[2.75rem] md:text-[3.25rem] lg:text-[3.75rem] font-extrabold leading-[1.05] tracking-tight mb-5 text-foreground">
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="block"
+                >
+                  Protect Your Inbox
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35 }}
+                  className="block gradient-text"
+                >
+                  Against Phishing
+                </motion.span>
               </h1>
 
-              <p className="text-white/50 text-base md:text-lg leading-relaxed max-w-[520px] mx-auto mb-10">
-                Advanced AI that detects phishing emails, scans malicious links, and keeps your organization safe — all in real-time.
-              </p>
-
-              <Link
-                to="/analyzer"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-semibold bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-[0_0_30px_hsl(152,69%,40%/0.3)] hover:shadow-[0_0_40px_hsl(152,69%,40%/0.5)] hover:brightness-110 transition-all"
+              <motion.p
+                className="text-muted-foreground text-sm md:text-base leading-relaxed max-w-[440px] mx-auto mb-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
               >
-                Start Analyzing for Free
-                <ArrowRight className="h-4 w-4" />
-              </Link>
+                Advanced AI engine that scans and detects phishing emails in real-time. Protect your organization from sophisticated email threats.
+              </motion.p>
+
+              <motion.div
+                className="flex items-center justify-center gap-3 mb-8"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+              >
+                <Link
+                  to="/analyzer"
+                  className="group inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold bg-primary text-primary-foreground shadow-[var(--neon-glow)] hover:shadow-[var(--neon-glow-strong)] hover:brightness-110 transition-all"
+                >
+                  Get Started
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+                <Link
+                  to="/education"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-sm font-medium border border-border text-foreground hover:bg-secondary/50 transition-colors"
+                >
+                  Learn More
+                </Link>
+              </motion.div>
+
+              <motion.div
+                className="flex items-center justify-center gap-5"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+              >
+                {["No credit card required", "Instant results", "Free to use"].map((item, i) => (
+                  <motion.div
+                    key={i}
+                    className="flex items-center gap-1.5 text-[11px] text-muted-foreground"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.9 + i * 0.1 }}
+                  >
+                    <Check className="h-3 w-3 text-primary flex-shrink-0" />
+                    {item}
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* Decorative gradient line */}
+              <motion.div
+                className="mt-12 mx-auto w-24 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ delay: 1.2, duration: 0.8 }}
+              />
             </motion.div>
           </div>
-
-          {/* Tilted cards row */}
-          <div className="relative flex items-end justify-center gap-4 md:gap-6 pb-16 pt-8 overflow-hidden">
-            {heroCards.map((card, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 60 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 + i * 0.1 }}
-                className="relative w-[140px] md:w-[180px] h-[200px] md:h-[260px] rounded-2xl overflow-hidden flex-shrink-0 shadow-2xl"
-                style={{ transform: `rotate(${card.rotate})`, transformOrigin: "bottom center" }}
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${card.color} opacity-90`} />
-                <div className="absolute inset-0 bg-black/20" />
-                <div className="relative z-10 flex flex-col items-center justify-center h-full p-4 text-white text-center">
-                  <card.icon className="h-10 w-10 md:h-12 md:w-12 mb-3 drop-shadow-lg" />
-                  <span className="text-xs md:text-sm font-bold mb-1">{card.label}</span>
-                  <span className="text-[10px] md:text-xs text-white/70 leading-tight">{card.detail}</span>
-                </div>
-              </motion.div>
-            ))}
-            {/* Fade overlay at bottom */}
-            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[hsl(260,20%,25%)] to-transparent pointer-events-none" />
-          </div>
         </div>
+
+        <div className="border-b border-border/30" />
       </section>
+
       {/* ===== HOW IT WORKS ===== */}
       <section className="py-20">
         <div className="container mx-auto px-4">
