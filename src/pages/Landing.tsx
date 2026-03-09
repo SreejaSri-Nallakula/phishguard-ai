@@ -30,153 +30,216 @@ export default function Landing() {
   return (
     <>
       {/* ===== HERO SECTION ===== */}
-      <section className="relative overflow-hidden">
-        {/* Animated background orbs */}
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            className="absolute top-1/4 left-1/4 w-[300px] h-[300px] rounded-full bg-primary/8 blur-[100px]"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute bottom-1/4 right-1/4 w-[250px] h-[250px] rounded-full bg-accent/8 blur-[80px]"
-            animate={{ scale: [1.2, 1, 1.2], opacity: [0.4, 0.7, 0.4] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </div>
-
-        {/* Subtle grid */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{
-          backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
-          backgroundSize: "60px 60px"
+      <section className="relative overflow-hidden bg-background">
+        {/* Subtle dot pattern */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.4]" style={{
+          backgroundImage: "radial-gradient(hsl(var(--border)) 1px, transparent 1px)",
+          backgroundSize: "24px 24px"
         }} />
 
-        {/* Floating badges */}
-        {floatingItems.map((item, i) => (
-          <motion.div
-            key={i}
-            className="absolute hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full glass-card text-xs text-muted-foreground shadow-sm z-10"
-            style={{ left: item.x, top: item.y }}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: item.delay }}
-          >
-            <motion.div
-              animate={{ y: [0, -4, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
-              className="flex items-center gap-2"
-            >
-              <item.icon className="h-3.5 w-3.5 text-primary" />
-              <span className="font-medium">{item.label}</span>
-            </motion.div>
-          </motion.div>
-        ))}
-
         <div className="container mx-auto px-4 relative z-10">
-          <div className="flex items-center justify-center min-h-[85vh] py-16">
+          <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[85vh] py-16">
+            {/* Left content */}
             <motion.div
-              className="relative z-20 max-w-[620px] text-center mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              className="max-w-xl"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7 }}
             >
-              {/* Animated badge */}
               <motion.div
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-secondary/40 mb-6"
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-card text-xs text-muted-foreground font-medium mb-6"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
+                transition={{ delay: 0.2 }}
               >
                 <motion.div
-                  animate={{ rotate: [0, 10, -10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <Shield className="h-3.5 w-3.5 text-primary" />
-                </motion.div>
-                <span className="text-[11px] text-muted-foreground font-medium">Real-time phishing detection platform</span>
-                <motion.span
-                  className="w-1.5 h-1.5 rounded-full bg-safe"
+                  className="w-2 h-2 rounded-full bg-safe"
                   animate={{ opacity: [1, 0.3, 1] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 />
+                AI-Powered Email Security
               </motion.div>
 
-              <h1 className="text-[2.75rem] md:text-[3.25rem] lg:text-[3.75rem] font-extrabold leading-[1.05] tracking-tight mb-5 text-foreground">
+              <h1 className="text-[2.75rem] md:text-[3.5rem] lg:text-[4rem] font-extrabold leading-[1.05] tracking-tight mb-6 text-foreground">
                 <motion.span
+                  className="block"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="block"
+                  transition={{ delay: 0.15 }}
                 >
-                  Protect Your Inbox
+                  Protect Your
                 </motion.span>
                 <motion.span
+                  className="block gradient-text"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35 }}
-                  className="block gradient-text"
+                  transition={{ delay: 0.3 }}
                 >
-                  Against Phishing
+                  Inbox First
                 </motion.span>
               </h1>
 
               <motion.p
-                className="text-muted-foreground text-sm md:text-base leading-relaxed max-w-[440px] mx-auto mb-8"
+                className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8 max-w-md"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
+                transition={{ delay: 0.45 }}
               >
-                Advanced AI engine that scans and detects phishing emails in real-time. Protect your organization from sophisticated email threats.
+                Fast, friendly, and engaging — our AI engine scans and detects phishing emails before they reach you.
               </motion.p>
 
               <motion.div
-                className="flex items-center justify-center gap-3 mb-8"
+                className="flex items-center gap-3 mb-10"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
+                transition={{ delay: 0.55 }}
               >
                 <Link
                   to="/analyzer"
-                  className="group inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold bg-primary text-primary-foreground shadow-[var(--neon-glow)] hover:shadow-[var(--neon-glow-strong)] hover:brightness-110 transition-all"
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-semibold bg-foreground text-background hover:bg-foreground/90 transition-all"
                 >
-                  Get Started
+                  Start Analyzing
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <Link
                   to="/education"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-sm font-medium border border-border text-foreground hover:bg-secondary/50 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-medium border border-border text-foreground hover:bg-secondary/50 transition-colors"
                 >
                   Learn More
                 </Link>
               </motion.div>
 
+              {/* Stats row */}
               <motion.div
-                className="flex items-center justify-center gap-5"
+                className="flex items-center gap-8"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.8 }}
+                transition={{ delay: 0.7 }}
               >
-                {["No credit card required", "Instant results", "Free to use"].map((item, i) => (
+                {[
+                  { value: "99.2%", label: "Detection Rate" },
+                  { value: "20K+", label: "Emails Scanned" },
+                  { value: "<1s", label: "Analysis Time" },
+                ].map((stat, i) => (
                   <motion.div
                     key={i}
-                    className="flex items-center gap-1.5 text-[11px] text-muted-foreground"
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.9 + i * 0.1 }}
+                    className="text-left"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8 + i * 0.1 }}
                   >
-                    <Check className="h-3 w-3 text-primary flex-shrink-0" />
-                    {item}
+                    <div className="text-xl md:text-2xl font-bold text-foreground">{stat.value}</div>
+                    <div className="text-xs text-muted-foreground">{stat.label}</div>
                   </motion.div>
                 ))}
               </motion.div>
+            </motion.div>
 
-              {/* Decorative gradient line */}
-              <motion.div
-                className="mt-12 mx-auto w-24 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 1.2, duration: 0.8 }}
-              />
+            {/* Right side — isometric-style illustration cards */}
+            <motion.div
+              className="relative hidden lg:flex items-center justify-center"
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <div className="relative w-full max-w-lg aspect-square">
+                {/* Main card */}
+                <motion.div
+                  className="absolute top-[10%] left-[10%] w-[75%] glass-card p-6 rounded-2xl shadow-lg"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <Shield className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-foreground">Email Analysis</div>
+                      <div className="text-xs text-muted-foreground">Real-time scanning</div>
+                    </div>
+                  </div>
+                  <div className="space-y-2.5">
+                    <div className="h-2.5 rounded-full bg-secondary w-full" />
+                    <div className="h-2.5 rounded-full bg-secondary w-4/5" />
+                    <div className="h-2.5 rounded-full bg-secondary w-3/5" />
+                  </div>
+                  <div className="mt-4 flex items-center gap-2">
+                    <div className="px-3 py-1 rounded-full bg-safe/10 text-safe text-xs font-medium flex items-center gap-1">
+                      <Check className="h-3 w-3" /> Safe
+                    </div>
+                    <div className="px-3 py-1 rounded-full bg-secondary text-muted-foreground text-xs">Score: 12/100</div>
+                  </div>
+                </motion.div>
+
+                {/* Floating threat card */}
+                <motion.div
+                  className="absolute top-[5%] right-[2%] glass-card p-4 rounded-xl shadow-md w-48"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.7 }}
+                >
+                  <motion.div
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <AlertTriangle className="h-4 w-4 text-destructive" />
+                      <span className="text-xs font-semibold text-destructive">Threat Found</span>
+                    </div>
+                    <div className="text-[11px] text-muted-foreground">Suspicious link detected in email body</div>
+                  </motion.div>
+                </motion.div>
+
+                {/* Floating stats card */}
+                <motion.div
+                  className="absolute bottom-[12%] right-[5%] glass-card p-4 rounded-xl shadow-md"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.9 }}
+                >
+                  <motion.div
+                    animate={{ y: [0, -4, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <BarChart3 className="h-4 w-4 text-primary" />
+                      <span className="text-xs font-semibold text-foreground">Risk Score</span>
+                    </div>
+                    <div className="text-2xl font-bold text-primary">87<span className="text-sm text-muted-foreground">/100</span></div>
+                  </motion.div>
+                </motion.div>
+
+                {/* Bottom-left domain card */}
+                <motion.div
+                  className="absolute bottom-[8%] left-[5%] glass-card p-3 rounded-xl shadow-md"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.1 }}
+                >
+                  <motion.div
+                    animate={{ y: [0, -3, 0] }}
+                    transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                    className="flex items-center gap-2"
+                  >
+                    <Globe className="h-4 w-4 text-suspicious" />
+                    <div>
+                      <div className="text-xs font-semibold text-foreground">Domain Check</div>
+                      <div className="text-[10px] text-muted-foreground">paypai-secure.com</div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+
+                {/* Decorative connecting lines */}
+                <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20" viewBox="0 0 400 400">
+                  <motion.line x1="200" y1="120" x2="320" y2="60" stroke="hsl(var(--primary))" strokeWidth="1" strokeDasharray="4 4"
+                    initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 1.2, duration: 0.8 }} />
+                  <motion.line x1="200" y1="200" x2="340" y2="280" stroke="hsl(var(--primary))" strokeWidth="1" strokeDasharray="4 4"
+                    initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 1.4, duration: 0.8 }} />
+                  <motion.line x1="180" y1="220" x2="100" y2="320" stroke="hsl(var(--suspicious))" strokeWidth="1" strokeDasharray="4 4"
+                    initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 1.6, duration: 0.8 }} />
+                </svg>
+              </div>
             </motion.div>
           </div>
         </div>
