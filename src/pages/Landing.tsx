@@ -1,86 +1,85 @@
 import { Link } from "react-router-dom";
-import { Shield, Search, FileText, Zap, Globe, BarChart3, AlertTriangle, Lock, ChevronRight, ArrowRight, Check } from "lucide-react";
+import { Shield, Search, FileText, Zap, Globe, BarChart3, AlertTriangle, Lock, ChevronRight, ArrowRight, Check, Mail, ShieldAlert, ShieldCheck, Eye } from "lucide-react";
 import { motion } from "framer-motion";
-import hackerHero from "@/assets/hacker-hero.png";
 
 const fadeUp = { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.6 } };
 
-const steps = [
-  { icon: FileText, title: "Paste Email", desc: "Copy the suspicious email content into our analyzer" },
-  { icon: Search, title: "AI Analysis", desc: "Our AI engine scans for phishing indicators in real-time" },
-  { icon: BarChart3, title: "Get Report", desc: "Receive a detailed security report with risk score" },
-];
-
-const features = [
-  { icon: Zap, title: "AI Phishing Detection", desc: "Advanced NLP models detect sophisticated phishing attempts" },
-  { icon: AlertTriangle, title: "Suspicious Phrase Detection", desc: "Highlights urgent language and social engineering tactics" },
-  { icon: Globe, title: "Domain Reputation Check", desc: "Verifies sender domains against threat intelligence databases" },
-  { icon: BarChart3, title: "Risk Score Meter", desc: "Quantified threat assessment from 0 to 100" },
-  { icon: Lock, title: "Link Scanner", desc: "Analyzes embedded URLs for malicious redirects" },
-  { icon: Shield, title: "Security Recommendations", desc: "Actionable advice tailored to each threat level" },
+const heroCards = [
+  { icon: ShieldAlert, label: "Phishing Detected", color: "from-red-500 to-orange-500", rotate: "-12deg", detail: "Suspicious sender + urgency tactics" },
+  { icon: Mail, label: "Email Scanned", color: "from-primary to-accent", rotate: "-6deg", detail: "AI analysis in 2.3 seconds" },
+  { icon: Eye, label: "Link Analysis", color: "from-violet-500 to-purple-600", rotate: "0deg", detail: "3 malicious URLs found" },
+  { icon: ShieldCheck, label: "Safe Email", color: "from-emerald-500 to-teal-500", rotate: "6deg", detail: "No threats detected" },
+  { icon: AlertTriangle, label: "Threat Alert", color: "from-amber-500 to-red-500", rotate: "12deg", detail: "Domain spoofing attempt" },
 ];
 
 export default function Landing() {
   return (
     <>
       {/* ===== HERO SECTION ===== */}
-      <section className="relative overflow-hidden">
-        {/* Background grid */}
-        <div className="absolute inset-0 pointer-events-none grid-bg opacity-25" />
+      <section className="relative overflow-hidden bg-gradient-to-b from-[hsl(260,30%,15%)] via-[hsl(260,25%,20%)] to-[hsl(260,20%,25%)]">
+        {/* Gradient orbs */}
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-primary/20 blur-[150px] pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-accent/15 blur-[120px] pointer-events-none" />
 
         <div className="container mx-auto px-4 relative z-10">
-          {/* Main hero area */}
-          <div className="flex items-center justify-center min-h-[80vh] py-16">
+          {/* Text content */}
+          <div className="flex flex-col items-center text-center pt-24 pb-8">
             <motion.div
-              className="relative z-20 max-w-[600px] text-center mx-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
+              className="max-w-[700px]"
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-secondary/40 mb-6">
-                <Shield className="h-3 w-3 text-primary" />
-                <span className="text-[11px] text-muted-foreground font-medium">Real-time phishing detection platform</span>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-8">
+                <Shield className="h-3.5 w-3.5 text-emerald-400" />
+                <span className="text-xs text-white/60 font-medium">AI-Powered Email Security</span>
               </div>
 
-              <h1 className="text-[2.75rem] md:text-[3.25rem] lg:text-[3.5rem] font-extrabold leading-[1.05] tracking-tight mb-5 text-foreground">
-                Protect Your Inbox
+              <h1 className="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-extrabold leading-[1.05] tracking-tight mb-6">
+                <span className="text-white">Less phishing, </span>
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-primary-foreground">more security.</span>
                 <br />
-                Against Phishing
+                <span className="text-white">Protect your inbox</span>
               </h1>
 
-              <p className="text-muted-foreground text-sm leading-relaxed max-w-[420px] mx-auto mb-8">
-                Advanced AI engine that scans and detects phishing emails in real-time. Protect your organization from sophisticated email threats.
+              <p className="text-white/50 text-base md:text-lg leading-relaxed max-w-[520px] mx-auto mb-10">
+                Advanced AI that detects phishing emails, scans malicious links, and keeps your organization safe — all in real-time.
               </p>
 
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <Link
-                  to="/analyzer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold bg-primary text-primary-foreground shadow-[var(--neon-glow)] hover:brightness-110 transition-all"
-                >
-                  Get Started
-                </Link>
-                <Link
-                  to="/education"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-sm font-medium border border-border text-foreground hover:bg-secondary/50 transition-colors"
-                >
-                  Learn More
-                </Link>
-              </div>
-
-              <div className="flex items-center justify-center gap-5">
-                {["No credit card required", "Instant results", "Free to use"].map((item, i) => (
-                  <div key={i} className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                    <Check className="h-3 w-3 text-primary flex-shrink-0" />
-                    {item}
-                  </div>
-                ))}
-              </div>
+              <Link
+                to="/analyzer"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-semibold bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-[0_0_30px_hsl(152,69%,40%/0.3)] hover:shadow-[0_0_40px_hsl(152,69%,40%/0.5)] hover:brightness-110 transition-all"
+              >
+                Start Analyzing for Free
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </motion.div>
           </div>
-        </div>
 
-        {/* Bottom border line */}
-        <div className="border-b border-border/30" />
+          {/* Tilted cards row */}
+          <div className="relative flex items-end justify-center gap-4 md:gap-6 pb-16 pt-8 overflow-hidden">
+            {heroCards.map((card, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 60 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 + i * 0.1 }}
+                className="relative w-[140px] md:w-[180px] h-[200px] md:h-[260px] rounded-2xl overflow-hidden flex-shrink-0 shadow-2xl"
+                style={{ transform: `rotate(${card.rotate})`, transformOrigin: "bottom center" }}
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${card.color} opacity-90`} />
+                <div className="absolute inset-0 bg-black/20" />
+                <div className="relative z-10 flex flex-col items-center justify-center h-full p-4 text-white text-center">
+                  <card.icon className="h-10 w-10 md:h-12 md:w-12 mb-3 drop-shadow-lg" />
+                  <span className="text-xs md:text-sm font-bold mb-1">{card.label}</span>
+                  <span className="text-[10px] md:text-xs text-white/70 leading-tight">{card.detail}</span>
+                </div>
+              </motion.div>
+            ))}
+            {/* Fade overlay at bottom */}
+            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[hsl(260,20%,25%)] to-transparent pointer-events-none" />
+          </div>
+        </div>
       </section>
       {/* ===== HOW IT WORKS ===== */}
       <section className="py-20">
