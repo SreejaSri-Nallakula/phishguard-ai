@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  email        String   @unique
+  passwordHash String
+  name         String?
+  scans        Scan[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Scan {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String?  @db.ObjectId
+  user           User?    @relation(fields: [userId], references: [id])
+  date           DateTime @default(now())
+  riskScore      Int
+  classification String
+  domain         String
+  snippet        String
+  resultJson     String // Store the full AnalysisResult as JSON
+  createdAt      DateTime @default(now())
+}

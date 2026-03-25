@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 230 20% 97%;
+    --foreground: 230 25% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 230 25% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 25% 10%;
+
+    --primary: 260 70% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 230 15% 93%;
+    --secondary-foreground: 230 20% 25%;
+
+    --muted: 230 15% 95%;
+    --muted-foreground: 230 10% 45%;
+
+    --accent: 280 60% 58%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --safe: 152 69% 40%;
+    --safe-foreground: 0 0% 100%;
+
+    --suspicious: 38 92% 50%;
+    --suspicious-foreground: 230 25% 10%;
+
+    --border: 230 15% 89%;
+    --input: 230 15% 91%;
+    --ring: 260 70% 55%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 230 25% 10%;
+    --sidebar-primary: 260 70% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 230 15% 95%;
+    --sidebar-accent-foreground: 230 20% 25%;
+    --sidebar-border: 230 15% 89%;
+    --sidebar-ring: 260 70% 55%;
+
+    --neon-glow: 0 4px 16px hsl(260 70% 55% / 0.12), 0 1px 4px hsl(260 70% 55% / 0.08);
+    --neon-glow-strong: 0 6px 24px hsl(260 70% 55% / 0.16), 0 2px 8px hsl(260 70% 55% / 0.1);
+    --danger-glow: 0 4px 16px hsl(0 72% 51% / 0.1);
+    --safe-glow: 0 4px 16px hsl(152 69% 40% / 0.1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card border border-border rounded-xl shadow-sm;
+  }
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300 hover:border-primary/30 hover:shadow-[var(--neon-glow)];
+  }
+  .neon-border {
+    @apply border border-primary/25 shadow-[var(--neon-glow)];
+  }
+  .neon-text {
+    @apply text-primary;
+  }
+  .grid-bg {
+    background: hsl(var(--background));
+  }
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-violet-600 to-fuchsia-600;
+  }
+}
+
+@layer utilities {
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
