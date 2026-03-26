@@ -14,6 +14,10 @@ app.use(express.json());
 
 app.use("/api", apiRoutes);
 
+app.get("/", (req, res) => {
+  res.send("PhishGuard AI Backend is running successfully!");
+});
+
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
