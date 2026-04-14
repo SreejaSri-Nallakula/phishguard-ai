@@ -1,14 +1,14 @@
 {
   "version": 2,
   "functions": {
-    "api/main.ts": {
+    "api/index.ts": {
       "runtime": "vercel-node"
     }
   },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/main"
+      "destination": "/api/index"
     },
     {
       "source": "/(.*)",
