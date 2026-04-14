@@ -21,7 +21,9 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use("/api", apiRoutes);
 
 // Serve static files from the React app
-const frontendPath = path.join(__dirname, "../../frontend/dist");
+const frontendPath = path.resolve(__dirname, "../../frontend/dist");
+console.log(`Serving static files from: ${frontendPath}`);
+
 app.use(express.static(frontendPath));
 
 app.get("/api/health", (req, res) => {
@@ -34,9 +36,12 @@ app.get("*", (req, res) => {
   if (req.path.startsWith("/api")) {
     return res.status(404).json({ error: "API route not found" });
   }
-  res.sendFile(path.join(frontendPath, "index.html"), (err) => {
+  
+  const indexPath = path.join(frontendPath, "index.html");
+  res.sendFile(indexPath, (err) => {
     if (err) {
-      res.status(200).send("PhishGuard AI Backend is running! (Frontend build not found)");
+      console.error(`Error sending index.html from ${indexPath}:`, err);
+      res.status(200).send("PhishGuard AI Backend is running! (Frontend build not found at " + indexPath + ")");
     }
   });
 });
