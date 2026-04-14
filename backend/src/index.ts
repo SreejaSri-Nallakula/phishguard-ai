@@ -11,6 +11,15 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Diagnostic logging for Production
+if (process.env.NODE_ENV === "production") {
+  console.log("--- Production Environment Check ---");
+  console.log("DATABASE_URL present:", !!process.env.DATABASE_URL);
+  console.log("JWT_SECRET present:", !!process.env.JWT_SECRET);
+  if (!process.env.DATABASE_URL) console.error("CRITICAL: DATABASE_URL is missing!");
+  console.log("------------------------------------");
+}
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 

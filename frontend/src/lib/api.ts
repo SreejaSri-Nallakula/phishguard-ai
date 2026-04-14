@@ -18,7 +18,8 @@ export const api = {
     try { json = JSON.parse(text); } catch { json = null; }
 
     if (!response.ok) {
-      throw new Error(json?.error || json?.message || "API Request Failed");
+      console.error(`API Error: ${response.status} ${response.statusText}`, json);
+      throw new Error(json?.error || json?.message || `Error ${response.status}: ${response.statusText}`);
     }
     return json;
   },
