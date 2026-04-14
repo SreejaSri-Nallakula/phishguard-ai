@@ -12,6 +12,7 @@ model User {
   email        String   @unique
   passwordHash String
   name         String?
+  profileImage String?
   scans        Scan[]
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt

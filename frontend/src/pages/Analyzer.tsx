@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { api } from "@/lib/api";
+import { toast } from "sonner";
 
 export default function Analyzer() {
   const [emailContent, setEmailContent] = useState("");
@@ -22,16 +23,33 @@ export default function Analyzer() {
   const [uploadedFile, setUploadedFile] = useState<string | null>(null);
   const [showResultModal, setShowResultModal] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showEmailError, setShowEmailError] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  const isValidEmailFormat = (text: string) => {
+    // Check for common email headers (From:, To:, Subject:, Date:)
+    const headerRegex = /^(from|to|subject|date|bcc|cc):/im;
+    // Check for any email address
+    const emailRegex = /[\w.-]+@[\w.-]+\.\w+/;
+    
+    return headerRegex.test(text) || emailRegex.test(text);
+  };
 
   const handleAnalyze = async () => {
     if (!emailContent.trim()) return;
+    
+    if (!isValidEmailFormat(emailContent)) {
+      setShowEmailError(true);
+      return;
+    }
+
     setAnalyzing(true);
     setResult(null);
     setError(null);
     try {
       const userStr = localStorage.getItem("phishguard_user");
-      const user = userStr ? JSON.parse(userStr) : null;
+      let user = null;
+      try { user = userStr ? JSON.parse(userStr) : null; } catch { user = null; }
       
       const scan = await api.post("/scans/analyze", { 
         content: emailContent,
@@ -216,6 +234,25 @@ export default function Analyzer() {
                 <AnalysisReport result={result} emailContent={emailContent} />
               </div>
             )}
+          </DialogContent>
+        </Dialog>
+        <Dialog open={showEmailError} onOpenChange={setShowEmailError}>
+          <DialogContent className="max-w-[320px] bg-white border-none p-6 text-center rounded-2xl">
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center">
+                <AlertTriangle className="h-6 w-6 text-red-600" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-red-600">Error</h3>
+                <p className="text-red-500/80 text-sm mt-1">It's not an email</p>
+              </div>
+              <button 
+                onClick={() => setShowEmailError(false)}
+                className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-semibold transition-colors mt-2"
+              >
+                Close
+              </button>
+            </div>
           </DialogContent>
         </Dialog>
       </div>

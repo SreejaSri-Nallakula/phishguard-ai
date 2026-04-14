@@ -13,7 +13,8 @@ export default function Dashboard() {
     const fetchData = async () => {
       try {
         const userStr = localStorage.getItem("phishguard_user");
-        const user = userStr ? JSON.parse(userStr) : null;
+        let user = null;
+        try { user = userStr ? JSON.parse(userStr) : null; } catch { user = null; }
         const params = user ? { userId: user.id } : undefined;
 
         const [statsData, historyData] = await Promise.all([

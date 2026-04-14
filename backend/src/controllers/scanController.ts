@@ -187,9 +187,20 @@ function analyzeEmail(content: string) {
   };
 }
 
+function isValidEmailFormat(text: string) {
+  const headerRegex = /^(from|to|subject|date|bcc|cc):/im;
+  const emailRegex = /[\w.-]+@[\w.-]+\.\w+/;
+  return headerRegex.test(text) || emailRegex.test(text);
+}
+
 export const analyzeAndSave = async (req: Request, res: Response) => {
   try {
     const { content, userId } = req.body;
+    
+    if (!content || !isValidEmailFormat(content)) {
+      return res.status(400).json({ error: "It's not an email" });
+    }
+
     const result = analyzeEmail(content);
     
     try {
@@ -227,8 +238,13 @@ export const analyzeAndSave = async (req: Request, res: Response) => {
 export const getHistory = async (req: Request, res: Response) => {
   try {
     const { userId } = req.query;
+    
+    if (!userId) {
+      return res.json([]);
+    }
+
     const scans = await prisma.scan.findMany({
-      where: userId ? { userId: String(userId) } : {},
+      where: { userId: String(userId) },
       orderBy: { createdAt: "desc" },
     });
     res.json(scans);
@@ -241,7 +257,12 @@ export const getHistory = async (req: Request, res: Response) => {
 export const getStats = async (req: Request, res: Response) => {
   try {
     const { userId } = req.query;
-    const where = userId ? { userId: String(userId) } : {};
+    
+    if (!userId) {
+      return res.json({ total: 0, safe: 0, suspicious: 0, phishing: 0 });
+    }
+
+    const where = { userId: String(userId) };
     
     const total = await prisma.scan.count({ where });
     const safe = await prisma.scan.count({ where: { ...where, classification: "Safe" } });

@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Shield, Search, FileText, Zap, Globe, BarChart3, AlertTriangle, Lock, ChevronRight, ArrowRight, Check, Mail, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 const fadeUp = { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.6 } };
 
@@ -27,6 +28,15 @@ const floatingItems = [
 ];
 
 export default function Landing() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const location = useLocation();
+  
+  useEffect(() => {
+    const token = localStorage.getItem("phishguard_token");
+    setIsAuthenticated(!!token);
+  }, [location.pathname]);
+
   return (
     <>
       {/* ===== HERO SECTION ===== */}
@@ -94,19 +104,31 @@ export default function Landing() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.55 }}
               >
-                <Link
-                  to="/analyzer"
-                  className="group inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-[var(--neon-glow)]"
-                >
-                  Start Analyzing
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
-                <Link
-                  to="/login"
-                  className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-semibold bg-foreground text-background hover:bg-foreground/90 transition-all"
-                >
-                  Login / Sign Up
-                </Link>
+                {!isAuthenticated ? (
+                  <Link
+                    to="/login?mode=signup"
+                    className="group inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-[var(--neon-glow)]"
+                  >
+                    Get Started
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </Link>
+                ) : (
+                  <>
+                    <Link
+                      to="/analyzer"
+                      className="group inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-[var(--neon-glow)]"
+                    >
+                      Start Analyzing
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </Link>
+                    <Link
+                      to="/dashboard"
+                      className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-semibold bg-foreground text-background hover:bg-foreground/90 transition-all"
+                    >
+                      Dashboard
+                    </Link>
+                  </>
+                )}
                 <Link
                   to="/education"
                   className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-medium border border-border text-foreground hover:bg-secondary/50 transition-colors"

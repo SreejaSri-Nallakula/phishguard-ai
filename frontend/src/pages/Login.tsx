@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { Shield, Mail, Lock, User, ArrowRight, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 
 export default function Login() {
-  const [isSignup, setIsSignup] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const searchParams = new URLSearchParams(location.search);
+  const [isSignup, setIsSignup] = useState(searchParams.get("mode") === "signup");
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,11 +24,13 @@ export default function Login() {
       
       const res = await api.post(endpoint, payload);
       
+      if (!res?.token) throw new Error("Invalid server response");
+      
       localStorage.setItem("phishguard_token", res.token);
       localStorage.setItem("phishguard_user", JSON.stringify(res.user));
       
       toast.success(isSignup ? "Account created successfully!" : "Welcome back!");
-      navigate("/dashboard");
+      navigate("/");
     } catch (error: any) {
       toast.error(error.message || "Authentication failed");
     } finally {
@@ -39,8 +43,8 @@ export default function Login() {
       <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">
         <div className="text-center mb-8">
           <Shield className="h-12 w-12 neon-text mx-auto mb-4" />
-          <h1 className="text-2xl font-bold">{isSignup ? "Create Account" : "Welcome Back"}</h1>
-          <p className="text-sm text-muted-foreground mt-1">{isSignup ? "Join PhishGuard AI" : "Sign in to your account"}</p>
+          <h1 className="text-2xl font-bold">{isSignup ? "Create Your Account" : "Welcome Back"}</h1>
+          <p className="text-sm text-muted-foreground mt-1">{isSignup ? "Start protecting your inbox today" : "Continue your phishing protection"}</p>
         </div>
 
         <div className="glass-card p-8">
@@ -100,9 +104,9 @@ export default function Login() {
           </form>
 
           <div className="mt-6 text-center text-sm text-muted-foreground">
-            {isSignup ? "Already have an account?" : "Don't have an account?"}{" "}
+            {isSignup ? "Already protecting your inbox?" : "New to PhishGuard AI?"}{" "}
             <button onClick={() => setIsSignup(!isSignup)} className="text-primary hover:underline font-medium">
-              {isSignup ? "Sign In" : "Sign Up"}
+              {isSignup ? "Sign In" : "Create a Free Account"}
             </button>
           </div>
         </div>

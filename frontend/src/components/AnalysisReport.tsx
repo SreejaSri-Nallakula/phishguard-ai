@@ -1,4 +1,4 @@
-import { Shield, AlertTriangle, XCircle, Globe, Link2, Brain, ShieldCheck } from "lucide-react";
+import { Shield, AlertTriangle, XCircle, Globe, Link2, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import RiskGauge from "./RiskGauge";
 import type { AnalysisResult } from "@/lib/phishingAnalyzer";
@@ -106,14 +106,6 @@ export default function AnalysisReport({ result, emailContent }: Props) {
           </div>
         </motion.div>
       )}
-
-      {/* AI Explanation */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="glass-card p-6">
-        <h3 className="font-semibold flex items-center gap-2 mb-4">
-          <Brain className="h-5 w-5 neon-text" /> AI Explanation
-        </h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">{result.aiExplanation || "Analysis pending detailed explanation."}</p>
-      </motion.div>
 
       {/* Security Advice */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="glass-card p-6">

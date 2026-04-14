@@ -13,14 +13,16 @@ export default function History() {
     const fetchHistory = async () => {
       try {
         const userStr = localStorage.getItem("phishguard_user");
-        const user = userStr ? JSON.parse(userStr) : null;
+        let user = null;
+        try { user = userStr ? JSON.parse(userStr) : null; } catch { user = null; }
         const params = user ? { userId: user.id } : undefined;
         
         const data = await api.get("/scans", params);
-        setHistory(data.map((item: any) => ({
-          ...item,
-          result: JSON.parse(item.resultJson)
-        })));
+        setHistory(data.map((item: any) => {
+          let result = {};
+          try { result = JSON.parse(item.resultJson); } catch { result = {}; }
+          return { ...item, result };
+        }));
       } catch (error) {
         console.error("History Fetch Error:", error);
       } finally {

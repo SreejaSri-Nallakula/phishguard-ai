@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { signup, login } from "../controllers/authController.js";
+import { signup, login, updateProfile, authenticateToken } from "../controllers/authController.js";
 import { analyzeAndSave, getHistory, getStats } from "../controllers/scanController.js";
 
 const router = Router();
@@ -7,6 +7,7 @@ const router = Router();
 // Auth routes
 router.post("/auth/signup", signup);
 router.post("/auth/login", login);
+router.put("/auth/profile", authenticateToken, updateProfile);
 
 // Scan routes
 router.post("/scans/analyze", analyzeAndSave);
