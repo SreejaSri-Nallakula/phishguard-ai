@@ -49,8 +49,9 @@ export default function Dashboard() {
     });
     return days.map((day) => {
       const dayItems = history.filter((h: any) => h.date?.slice(0, 10) === day);
+      const [year, month, dayOnly] = day.split("-");
       return {
-        day: day.slice(5),
+        day: `${dayOnly}-${month}`,
         Safe: dayItems.filter((h: any) => h.classification === "Safe").length,
         Suspicious: dayItems.filter((h: any) => h.classification === "Suspicious").length,
         Phishing: dayItems.filter((h: any) => h.classification === "Phishing").length,

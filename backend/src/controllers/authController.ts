@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { prisma } from "../lib/prisma.js";
+import { sendOTPEmail } from "../lib/mailer.js";
 
 const JWT_SECRET = process.env.JWT_SECRET || "fallback-secret";
 
@@ -77,5 +78,77 @@ export const updateProfile = async (req: Request, res: Response) => {
     });
   } catch (error) {
     res.status(500).json({ error: "Failed to update profile" });
+  }
+};
+
+export const forgotPassword = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user) {
+      // For security, don't reveal if user exists
+      return res.json({ message: "If an account with that email exists, an OTP has been sent." });
+    }
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+
+    await prisma.user.update({
+      where: { email },
+      data: { otp, otpExpiry },
+    });
+
+    try {
+      await sendOTPEmail(email, otp);
+    } catch (mailError) {
+      console.error("Email service error, skipping real mail delivery.");
+    }
+    
+    // Always log OTP to console in development as a backup
+    console.log(`[DEVELOPER NOTICE] OTP for ${email} is: ${otp}`);
+    
+    res.json({ message: "If an account with that email exists, an OTP has been sent." });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to process request" });
+  }
+};
+
+export const verifyOTP = async (req: Request, res: Response) => {
+  try {
+    const { email, otp } = req.body;
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user || user.otp !== otp || (user.otpExpiry && user.otpExpiry < new Date())) {
+      return res.status(400).json({ error: "Invalid or expired OTP" });
+    }
+
+    res.json({ message: "OTP verified successfully", success: true });
+  } catch (error) {
+    res.status(500).json({ error: "Verification failed" });
+  }
+};
+
+export const resetPassword = async (req: Request, res: Response) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user || user.otp !== otp || (user.otpExpiry && user.otpExpiry < new Date())) {
+      return res.status(400).json({ error: "Invalid or expired OTP" });
+    }
+
+    const passwordHash = await bcrypt.hash(newPassword, 10);
+    await prisma.user.update({
+      where: { email },
+      data: { 
+        passwordHash, 
+        otp: null, 
+        otpExpiry: null 
+      },
+    });
+
+    res.json({ message: "Password reset successful" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to reset password" });
   }
 };

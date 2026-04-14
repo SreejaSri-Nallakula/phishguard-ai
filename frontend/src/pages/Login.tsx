@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Shield, Mail, Lock, User, ArrowRight, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Shield, Mail, Lock, User, ArrowRight, Loader2, Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
 import { api } from "@/lib/api";
@@ -11,9 +11,16 @@ export default function Login() {
   const searchParams = new URLSearchParams(location.search);
   const [isSignup, setIsSignup] = useState(searchParams.get("mode") === "signup");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+
+  // Sync state with URL params
+  useEffect(() => {
+    const mode = new URLSearchParams(location.search).get("mode");
+    setIsSignup(mode === "signup");
+  }, [location.search]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,7 +51,9 @@ export default function Login() {
         <div className="text-center mb-8">
           <Shield className="h-12 w-12 neon-text mx-auto mb-4" />
           <h1 className="text-2xl font-bold">{isSignup ? "Create Your Account" : "Welcome Back"}</h1>
-          <p className="text-sm text-muted-foreground mt-1">{isSignup ? "Start protecting your inbox today" : "Continue your phishing protection"}</p>
+          <p className="text-sm text-muted-foreground mt-1">
+            {isSignup ? "Start protecting your inbox today" : "Continue your phishing protection"}
+          </p>
         </div>
 
         <div className="glass-card p-8">
@@ -84,13 +93,20 @@ export default function Login() {
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <input 
-                  type="password" 
+                  type={showPassword ? "text" : "password"} 
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   placeholder="••••••••" 
-                  className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-secondary/50 border border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" 
+                  className="w-full pl-10 pr-10 py-2.5 rounded-lg bg-secondary/50 border border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" 
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                >
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
               </div>
             </div>
             <button 
@@ -105,7 +121,10 @@ export default function Login() {
 
           <div className="mt-6 text-center text-sm text-muted-foreground">
             {isSignup ? "Already protecting your inbox?" : "New to PhishGuard AI?"}{" "}
-            <button onClick={() => setIsSignup(!isSignup)} className="text-primary hover:underline font-medium">
+            <button 
+              onClick={() => navigate(isSignup ? "/login" : "/login?mode=signup")} 
+              className="text-primary hover:underline font-medium"
+            >
               {isSignup ? "Sign In" : "Create a Free Account"}
             </button>
           </div>
