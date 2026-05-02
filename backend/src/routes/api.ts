@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { signup, login, updateProfile, authenticateToken, forgotPassword, verifyOTP, resetPassword } from "../controllers/authController.js";
 import { analyzeAndSave, getHistory, getStats } from "../controllers/scanController.js";
+import { prisma } from "../lib/prisma.js";
 
 const router = Router();
 
