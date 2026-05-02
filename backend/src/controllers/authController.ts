@@ -8,7 +8,12 @@ const JWT_SECRET = process.env.JWT_SECRET || "fallback-secret";
 
 export const authenticateToken = async (req: Request, res: Response, next: any) => {
   const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  let token = authHeader && authHeader.split(' ')[1];
+  
+  if (!token && req.headers.cookie) {
+    const cookies = Object.fromEntries(req.headers.cookie.split('; ').map(c => c.split('=')));
+    token = cookies['phishguard_token'];
+  }
 
   if (!token) return res.status(401).json({ error: "Access denied" });
 
@@ -36,6 +41,12 @@ export const signup = async (req: Request, res: Response) => {
     });
 
     const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "7d" });
+    res.cookie('phishguard_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    });
     res.status(201).json({ user: { id: user.id, email, name }, token });
   } catch (error) {
     console.error("Signup error:", error);
@@ -53,6 +64,12 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "7d" });
+    res.cookie('phishguard_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    });
     res.json({ user: { id: user.id, email: user.email, name: user.name }, token });
   } catch (error) {
     console.error("Login error:", error);

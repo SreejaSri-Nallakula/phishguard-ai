@@ -9,6 +9,7 @@ export const api = {
     const config: RequestInit = {
       method,
       headers,
+      credentials: "include",
     };
     if (data) config.body = JSON.stringify(data);
 
