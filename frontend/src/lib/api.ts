@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? "/api" : "http://localhost:5000/api");
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? "https://phishguard-ai-3-12rf.onrender.com/api" : "http://localhost:5000/api");
 
 export const api = {
   async request(endpoint: string, method: string, data?: any) {
