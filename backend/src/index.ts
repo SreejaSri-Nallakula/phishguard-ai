@@ -59,10 +59,11 @@ app.get("*", (req, res) => {
   });
 });
 
-// Only listen in manual start, Vercel will handle the app
-if (process.env.NODE_ENV !== "production") {
-  app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+// Render requires the app to listen on a port.
+// Only skip listening if running as a Vercel serverless function
+if (!process.env.VERCEL) {
+  app.listen(PORT as number, "0.0.0.0", () => {
+    console.log(`Server running on port ${PORT}`);
   });
 }
 
