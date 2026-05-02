@@ -8,10 +8,14 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/index"
+      "destination": "/api/index.ts"
     },
     {
-      "source": "/(.*)",
+      "source": "/assets/(.*)",
+      "destination": "/frontend/dist/assets/$1"
+    },
+    {
+      "source": "/(favicon\\.ico|placeholder\\.svg|robots\\.txt)",
       "destination": "/frontend/dist/$1"
     },
     {

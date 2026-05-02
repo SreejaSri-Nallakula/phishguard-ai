@@ -28,6 +28,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 app.use("/api", apiRoutes);
+app.use("/", apiRoutes); // Fallback for platforms that strip the /api prefix
 
 // Serve static files from the React app
 const frontendPath = path.resolve(__dirname, "../../frontend/dist");
